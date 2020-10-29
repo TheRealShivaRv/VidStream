@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'partials/_messages.html' %}
+<form class="app_form_layout" id="app_emailverification_form" method="POST" action="{% url 'emailverificationform' %}">
+  {% csrf_token %}
+  <h1 id="app_form_title_text">Email Verification</h1>
+  <label class="app_form_label">Enter the verification id:</label>
+  <input class="app_text_input_field" type="text" name="verificationid" placeholder="Enter the verification id" required/><br/><br/>
+  <button class="app_form_buttons" id="app_form_submit_button" type="submit">Submit</button>
+</form>
+{% endblock %}

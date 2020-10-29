@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!--<link rel="stylesheet" href="{% static 'css/signup.css' %}" />-->
+
+{% include 'partials/_messages.html' %}
+
+<form class="app_form_layout" id="app_signup_form" method="POST" action="{% url 'signup' %}">
+  {% csrf_token %}
+  <h1 id="app_form_title_text"> Signup </h1>
+  <label class="app_form_label">Username:</label>
+  <input class="app_text_input_field" name="username" placeholder="username" type="text" required /><br/><br/>
+  <label class="app_form_label">First Name:</label>
+  <input class="app_text_input_field" name="first_name" placeholder="first name" type="text" required/><br/><br/>
+  <label class="app_form_label">Last Name:</label>
+  <input class="app_text_input_field" name="last_name" placeholder="last name" type="text" required/><br/><br/>
+  <label class="app_form_label">Email:</label>
+  <input class="app_text_input_field" name="email" placeholder="email" type="email" required /><br/><br/>
+  <label class="app_form_label">Enter Password:</label>
+  <input class="app_text_input_field" name="password" placeholder="Enter Password" type="password" required/><br/><br/>
+  <label class="app_form_label">Confirm Password:</label>
+  <input class="app_text_input_field" name="password2" placeholder="Confirm Password" type="password" required/><br/><br/>
+  <button class="app_form_buttons" id="app_form_submit_button" type="submit">Submit</button>
+  <center style="margin-top: 20px;"><a href="{% url 'login' %}"><p class="signup_form_links">Back to Login</p></a></center>
+</form>
+
+{% endblock %}

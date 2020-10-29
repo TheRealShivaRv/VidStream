@@ -1,0 +1,14 @@
+{% load static %}
+{% if messages %}
+<script type="text/javascript" src="{% static 'js/jquery-latest.js' %}"></script>
+<script type="text/javascript">
+      $(document).ready( function() {
+        $('#messagesul').delay(3000).fadeOut();
+      });
+    </script>
+<center><ul class="messages" id="messagesul">
+  {% for message in messages %}
+    <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
+  {% endfor %}
+</ul></center>
+{% endif %}

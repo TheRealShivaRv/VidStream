@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1 class="app_section_h1">Suggested Videos</h1>
+{% include 'partials/_messages.html' %}
+  <ul class="app_media_snippet_ul">
+    {% for video in videos %}
+      <li class="app_media_snippet_li">
+        <div class="app_media_snippet_container">
+          {% if video.uploader == user.username %}
+            <a href="{% url 'videosettings' videotitle=video.title %}"><button class="app_video_thumb_edit_button" style="position: absolute; margin: 10px; padding: 5px; border: none; background:rgba(97,97,97,0.8); color:#ffffff; width: 50px;">Edit</button></a>
+          {% endif %}
+            <a href="{% url 'video' videotitle=video.title %}"><img src="{{video.thumbnail.url}}" class="app_media_snippet_thumbnail"/>
+            <h2 class="app_media_snippet_title">{{video.title}}</h2></a>
+            <p class="app_media_snippet_uploader_username">{{video.uploader}}</p>
+              <form method="POST" action="{% url 'videolike' %}">
+                {% csrf_token %}
+                <input type="hidden" name="videotitle" value="{{video.title}}"/>
+                <input type="hidden" name="videouploader" value="{{video.uploader}}"/>
+                <input type="hidden" name="username" value="{{user.username}}"/>
+                <input type="hidden" name="sourceurl" value="{{request.path}}"/>
+                <input type="hidden" name="is_liked" value="True"/>
+                <button class="app_media_snippet_like_button" id="likebutton" type="submit">
+                  {% if video.title in videotitles %}
+                   Unlike
+                  {% else %}
+                    Like
+                  {% endif %}
+                </button>
+              </form>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

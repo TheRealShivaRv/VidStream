@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="app_form_layout" id="app_videosettings_form">
+  <form method="POST" action="{% url 'videoupdate' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1 id="app_form_title_text">Current Video: {{currentitle}}</h1>
+    <input type="hidden" name="currentitle" value="{{currentitle}}"/>
+    <input type="hidden" name="videouploader" value="{{videouploader}}"/>
+
+    <label class="app_form_label">Update Video Title</label><br/>
+    <input type="text" class="app_text_input_field" name="newtitle" placeholder="Enter your new videotitle" required/><br/><br/>
+
+    <label class="app_form_label">Update Description</label><br/>
+    <input type="text" class="app_text_input_field" name="newdescription" placeholder="Enter your new description" required/><br/><br/>
+
+    <label class="app_form_label">Video Thumbnail</label><br/>
+    <input class="app_form_fileselect_buttons" type="file" name="newthumbnail" accept="image/*" required/><br/>
+    <button class="app_form_buttons" id="app_form_submit_button" type="submit">Submit</button>
+  </form>
+  <form method = "POST" style="margin-top: -20px; margin-bottom: 0px;" action="{% url 'videodelete' videotitle=currentitle %}">
+    {% csrf_token %}
+    <button class="app_form_buttons" id="app_form_delete_button" type="submit">Delete</button>
+  </form>
+</div>
+{% endblock %}
