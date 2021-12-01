@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'partials/_messages.html' %}
+<link rel="stylesheet" href="{% static 'css/video.css' %}"/>
+<section class="app_video_mast_section">
+  <aside class="app_video_aside">
+    <h2>Suggested Videos</h2>
+    <ul class="video_aside_ul">
+      <li><div style="width: 100%; height: 15px;"></div></li>
+      {% for video in videos %}
+        {% if not video.title == videonowtitle %}
+          <li class="video_aside_li">
+            <a href="{% url 'video' videotitle=video.title %}"><div class="video_aside_suggested_video_wrapper">
+              <img class="app_suggested_video_thumbsm" src="{{video.thumbnail.url}}" />
+              <h3 class="app_suggested_video_title">{{video.title}}</h3>
+            </div></a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </aside>
+  <article class="app_video_article">
+    <div class="app_video_warpper">
+      <video class="app_video_content"  id="video" src="{{videourl}}" controls autoplay>
+      </video>
+      <div class="app_video_controls" style="display: none;">
+        <button id="pauseplay">Pause</button>
+        <button id="soundmute">Mute</button>
+        <button id="fullscreen">FullScreen</button>
+      </div>
+    </div>
+    <div class="video_title_functionality_holder">
+      <div class="video_title_holder">
+        <h1 class="video_title_text">{{videonowtitle}}</h1>
+      </div>
+      <div class="video_functionality_holder">
+        {% for video in videos %}
+          {% if video.title == videonowtitle  %}
+          <form method="POST" action="{% url 'videolike' %}">
+            {% csrf_token %}
+            <input type="hidden" name="videotitle" value="{{video.title}}"/>
+            <input type="hidden" name="videouploader" value="{video.uploader}}"/>
+            <input type="hidden" name="username" value="{{user.username}}"/>
+            <input type="hidden" name="sourceurl" value="{{request.path}}"/>
+            <input type="hidden" name="is_liked" value="True"/>
+            <button class="video_functionality_button" id="video_functionality_likebutton" type="submit">
+              {% if video.title in videotitles %}
+                Unlike
+              {% else %}
+                Like
+              {% endif %}
+            </button>
+          </form>
+          {% endif %}
+          {% if video.uploader == user.username %}
+            {% if video.title == videonowtitle  %}
+            <a href="{% url 'videosettings' videotitle=video.title %}">
+              <button class="video_functionality_button" id="video_functionality_editbutton">Edit</button>
+            </a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% for video in videos %}
+      {% if video.title == videonowtitle  %}
+        <p class="video_uploader_text" style="width: 100%;">Uploader: {{video.uploader}}</p>
+      {% endif %}
+    {% endfor %}
+    <p class="video_description_text">{{videonowdescription}}</p>
+  </article>
+</section>
+<!--<script type="application/javascript" src="{% static 'js/video.js' %}"></script>-->
+{% endblock %}

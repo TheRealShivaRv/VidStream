@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'partials/_messages.html' %}
+<div class="app_form_layout" id="app_usersettings_form">
+  <form action="{% url 'usersettings' %}" method="POST">
+    {% csrf_token %}
+    <h1 id="app_form_title_text">User Settings</h1>
+    <p>* If you do not want to change any credentials then type the same credentials as you use now</p>
+    <label class="app_form_label">New Username: </label><br/>
+    <input class="app_text_input_field" type="text" name="username" placeholder="Enter your new username" required/><br/>
+    <label  class="app_form_label">Update First Name: </label><br/>
+    <input class="app_text_input_field" type="text" name="first_name" placeholder="Enter your First Name" required/><br/>
+    <label  class="app_form_label">Update Last Name: </label><br/>
+    <input class="app_text_input_field" type="text" name="last_name" placeholder="Enter your Last Name" required/><br/>
+    <label  class="app_form_label">Update Email id: </label><br/>
+    <input class="app_text_input_field" type="email" name="email" placeholder="Enter your new email" required/><br/>
+    <label  class="app_form_label">Update Password: </label><br/>
+    <input class="app_text_input_field" type="password" name="password" placeholder="Enter your new password" required/><br/>
+    <label  class="app_form_label">Confirm Your new Password: </label><br/>
+    <input class="app_text_input_field" type="password" name="password2" placeholder="Confirm your new password" required/><br/>
+    <button class="app_form_buttons" id="app_form_submit_button" type="submit">Submit</button><br/>
+  </form>
+  <form action="{% url 'userdelete' %}" style="margin-top: -20px; margin-bottom: 0px;" method="POST">
+    {% csrf_token %}
+    <button class="app_form_buttons" id="app_form_delete_button" name="deleteuser" type="submit">Delete Account</button>
+  </form>
+</div>
+<script type="application/javascript" src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}

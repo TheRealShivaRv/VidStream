@@ -1,0 +1,13 @@
+{% load static %}
+
+<footer>
+  <div id="app_footer_text_holder">
+    <p class="app_footer_text">Copyright © </p><p class="app_footer_text" id="currentyear">
+      <script type="application/javascript">
+        date = new Date();
+        CurrentYear = date.getFullYear();
+        document.getElementById("currentyear").innerHTML = CurrentYear;
+      </script><p class="app_footer_text"> Vidstream Inc.</p>
+    </p>
+  </div>
+</footer>

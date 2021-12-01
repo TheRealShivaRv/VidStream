@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'partials/_messages.html' %}
+{% if not user.is_authenticated %}
+<h1>You are not logged in. Please Login first to Upload your content</h1>
+{% else %}
+<form method="POST" class="app_form_layout" id="app_upload_form" enctype="multipart/form-data" action="{% url 'upload' %}">
+  {% csrf_token %}
+  <h1 id="app_form_title_text">Upload Your Video</h1>
+
+  <label class="app_form_label">Video Title:</label>
+  <input class="app_text_input_field" type="text" placeholder="video title" name="title" required/>
+  <br><br>
+  <label class="app_form_label">Video Description:</label>
+  <input class="app_text_input_field" id="upload_form_description_field" type="text" placeholder="Your description" name="description" required/>
+  <br><br>
+  <input type="hidden" name="uploader" value="{{user.username}}"/>
+  <br>
+  <label class="app_form_label">Your Video File:</label>
+  <input class="app_form_fileselect_buttons" name="video" placeholder="Your video file" type="file" accept="video/*" required/>
+  <br><br>
+  <label class="app_form_label">Your Thumbnail:</label>
+  <input class="app_form_fileselect_buttons" name="thumbnail" placeholder="Your thumbnail file" type="file" accept="image/*" required/>
+  <br><br>
+  <button class="app_form_buttons" class="upload_form_buttons" id="app_form_submit_button" type="submit">Upload</button>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,107 @@
+{% load static %}
+<nav id="mobile_nav">
+  <div id="mobile_nav_left_div">
+    <button id="mobile_nav_drawer_button" onclick="ToggleAppDrawer()">
+      <div id="nav_drawer_button-line1"></div>
+      <div id="nav_drawer_button-line2"></div>
+      <div id="nav_drawer_button-line3"></div>
+    </button>
+  </div>
+  <div id="mobile_nav_middle_div">
+    <a href="{% url 'index' %}"><p id="mobile_nav_logo_text">Vidstream</p></a>
+  </div>
+  <div id="mobile_nav_right_div">
+    {% if user.is_authenticated %}
+      <a href="javascript:{document.getElementById('logout').submit()}"><img id="mobile_nav_login_img" src="{% static 'img/mobilelogout.png' %}"/></a>
+    {% else %}
+      <a href="{% url 'login' %}"><img id="mobile_nav_login_img" src="{% static 'img/mobilelogin.png' %}"/></a>
+    {% endif %}
+  </div>
+</nav>
+{% if user.is_authenticated %}
+<navuserdropdown id="navuserdropdown">
+  <ul id="nav_user_dropdown_ul">
+    <a href="{% url 'dashboard' %}"><li id="nav_user_dropdown_li">Dashboard</li></a>
+    <a href="{% url 'likes' %}"><li id="nav_user_dropdown_li">Your Likes</li></a>
+    <a href="{% url 'usersettings' %}"><li id="nav_user_dropdown_li">User Settings</li></a>
+  </ul>
+</navuserdropdown>
+<script type="application/javascript" src="{% static 'js/navuserdropdown.js' %}"></script>
+<script>
+  function ToggleUserNavDrawer() {
+    var nav_user_dropdown_btn = document.getElementById("nav_user_dropdown_btn");
+    var navuserdropdown = document.getElementById("navuserdropdown");
+    if (navuserdropdown.style.display === "block") {
+      navuserdropdown.style.display = "none";
+      nav_user_dropdown_btn.style.background = "#ffffff;"
+    } else {
+      navuserdropdown.style.display = "block";
+      nav_user_dropdown_btn.style.background = "#16717d;"
+      }
+  }
+</script>
+{% endif %}
+<mobiledrawer id="mobiledrawer">
+  <h1 id="mobiledrawer_welcome_text">Welcome,</h1>
+  <h1 id="mobiledrawer_welcome_text2">{{user.first_name}}</h1>
+  <ul id="mobiledrawer_ul">
+    <li id="mobiledrawer_search_li">
+      <form id="mobiledrawer_search_form" method="GET" action="{% url 'search' %}">
+          {% csrf_token %}
+          <input id="mobiledrawer_search_field" type="search" placeholder="Search Videos" />
+          <button id="mobiledrawer_search_btn" type="submit"><img id="mobiledrawer_search_btn_img" src="{% static 'img/search.png' %}"/></submit>
+      </form>
+    </li>
+    <li id="mobiledrawer_blank_li1"></li>
+    <a href="{% url 'index' %}"><li id="mobiledrawer_li">Home</li></a>
+    <a href="{% url 'dashboard' %}"><li id="mobiledrawer_li">Dashboard</li></a>
+    <a href="{% url 'likes' %}"><li id="mobiledrawer_li">Likes</li></a>
+    <a href="{% url 'usersettings' %}"><li id="mobiledrawer_li">User settings</li></a>
+    <a href="javascript:{document.getElementById('logout').submit()}"><li id="mobiledrawer_li">Sign out</li></a>
+  </ul>
+</mobiledrawer>
+<nav>
+  <ul id="app_navbar_ul">
+    <li class="app_navbar_li_left"><a href="{% url 'index' %}"><h1 class="app_logo_text">Vidstream</h1></a></li>
+    <li class="app_navbar_li_left">
+      <form class="app_nav_search_form" method="GET" action="{% url 'search' %}">
+        {% csrf_token %}
+        <input type="search" id="nav_search_field" name="searchquery" placeholder="Search videos"/>
+        <button type="submit"id="nav_search_submit"><img id="nav_search_btn_img" src="{% static 'img/search.png' %}"/></button>
+      </form>
+    </li>
+    <li class="app_navbar_li_right">
+      {% if user.is_authenticated %}
+        <a href="javascript:{document.getElementById('logout').submit()}"><p class="app_nav_link_text_right" id="navlink2">Logout</p></a>
+      {% else %}
+        <a href="{% url 'login' %}"><p class="app_nav_link_text_right" id="navlink2">Login</p></a>
+      {% endif %}
+    </li>
+    <li class="app_navbar_li_right"><a href="{% url 'upload' %}"><p class="app_nav_link_text_right" id="navlink1">Upload</p></a></li>
+    {% if user.is_authenticated %}
+      <li class="app_navbar_li_right"><button id="nav_user_dropdown_btn" onclick="ToggleUserNavDrawer()"><p class="app_nav_link_text_right" id="navlink1">{{user.first_name}}</p></button></li>
+    {% endif %}
+  </ul>
+</nav>
+<form id="logout" action="{% url 'logout' %}" method="POST">
+  {% csrf_token %}
+  <input type="hidden" />
+</form>
+<script type="text/javascript">
+/*var mobile_nav_drawer_button = document.getElementById("mobile_nav_drawer_button");
+var mobiledrawer = document.getElementById("mobiledrawer");
+mobile_nav_drawer_button.addEventListener("click", ToggleAppDrawer);*/
+function ToggleAppDrawer() {
+  var mobile_nav_drawer_button = document.getElementById("mobiledrawer");
+  var mobiledrawer = document.getElementById("mobiledrawer");
+  if (mobiledrawer.style.display === "block") {
+    mobiledrawer.style.display = "none";
+    mobile_nav_drawer_button.style.background = "#ffffff;"
+  } else {
+    mobiledrawer.style.display = "block";
+    mobile_nav_drawer_button.style.background = "#16717d;"
+    }
+}
+
+
+</script>

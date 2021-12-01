@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}"/>
+{% include 'partials/_messages.html' %}
+<form class="app_form_layout" id="app_login_form" action="{% url 'login' %}" method="POST">
+  {% csrf_token %}
+  <h1 class="app_form_title_text" style="margin-top: 0px;"> Login </h1>
+  <label class="app_form_label">Username:</label>
+  <input class="app_text_input_field" name="username" placeholder="Your Username" type="text" /><br/><br/>
+  <label class="app_form_label">Password:</label>
+  <input class="app_text_input_field" name="password" placeholder="Enter your Password" type="password" />
+  <button class="app_form_buttons" id="app_form_submit_button" type="submit">Login</button>
+  <a href="{% url 'signup' %}"><p class="login_form_links" id="login_form_links_l1">Create a New Account</p></a>
+  <a href="{% url 'passwordreset' %}"><p class="login_form_links" id="login_form_links_l2">Forgot Password?</p></a>
+  <div style="height: 40px;"></div>
+</form>
+{% endblock %}
