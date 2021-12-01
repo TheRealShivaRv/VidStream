@@ -23,9 +23,9 @@ import os
 SECRET_KEY = 'django-insecure-%&24p3!)(m+b#17jg64%3qg(5@09s3hc@%24@%4=1rui6lv^fz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['vidstream-rv-shiva-subramanian.herokuapp.com','127.0.0.1']
 
 
 # Application definition
