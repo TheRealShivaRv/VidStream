@@ -135,8 +135,8 @@ MEDIA_URL = '/media/'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'shivayf22@gmail.com'
-EMAIL_HOST_PASSWORD = 'Sajuhanush500'
+EMAIL_HOST_USER = 'abc@abc.com'
+EMAIL_HOST_PASSWORD = '1111'
 EMAIL_USE_TLS=True
 
 # Default primary key field type
